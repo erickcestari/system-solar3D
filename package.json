@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite ./src",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "vite build ./src",
+    "preview": "vite preview ./src"
   },
   "devDependencies": {
     "vite": "^5.0.0"

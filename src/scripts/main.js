@@ -3,6 +3,8 @@ import '../style.css'
 import * as THREE from "three"
 
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
+import { Earth } from './planets/earth'
+import { Sun } from './planets/sun'
 
 const canvas = document.querySelector('#bg')
 
@@ -16,13 +18,7 @@ const renderer = new THREE.WebGLRenderer({
 
 renderer.setPixelRatio(window.devicePixelRatio)
 renderer.setSize(window.innerWidth, window.innerHeight)
-camera.position.setZ(30)
-
-const geometry = new THREE.TorusGeometry(10, 3, 16, 100)
-const material = new THREE.MeshStandardMaterial({ color: 0xff63 })
-const torus = new THREE.Mesh(geometry, material)
-
-scene.add(torus)
+camera.position.setZ(150)
 
 const pointLight = new THREE.PointLight(0xffffff)
 pointLight.intensity = 100
@@ -47,13 +43,39 @@ function addStar() {
 
 Array(200).fill().forEach(addStar)
 
+const earth1 = new Earth
+earth1.id = 1
+earth1.x = 100
+earth1.xVelocity = 0.1
+earth1.zVelocity = 0.1
+earth1.init(scene)
+
+const earth2 = new Earth
+earth2.id = 2
+earth2.xVelocity = -0.1
+earth2.init(scene)
+
+const sun = new Sun
+sun.id = 3
+sun.init(scene)
+
+const listPlanets = [earth1, earth2, sun]
+
 function animate() {
   requestAnimationFrame(animate)
   renderer.setSize(window.innerWidth, window.innerHeight);
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
-
   controls.update()
+
+  for(const planet of listPlanets) {
+    planet.move(listPlanets)
+  }
+
+  for(const planet of listPlanets) {
+    planet.draw()
+    planet.updatePosition()
+  }
 
   renderer.render(scene, camera);
 }
