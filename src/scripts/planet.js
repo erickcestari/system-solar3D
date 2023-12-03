@@ -26,7 +26,7 @@ export class Planet {
         const dz = planet.z - this.z
 
         let distanceSquared = (dx * dx + dy * dy + dz * dz) * AU
-        if(distanceSquared < 1000 * AU) {
+        if (distanceSquared < 1000 * AU) {
           distanceSquared = 1000 * AU
         }
         let distance = Math.sqrt(distanceSquared)
@@ -67,8 +67,6 @@ export class Planet {
   }
 
   draw() {
-    if (this.planetMesh) {
-      this.planetMesh.position.set(this.x, this.y, this.z);
-    }
+    this.planetMesh.position.set(this.x, this.y, this.z);
   }
 }
