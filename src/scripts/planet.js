@@ -16,6 +16,7 @@ export class Planet {
   planetMesh = null
   mass = EARTHMASS
   radius = EARTHRADIUS
+  image = 'earth.png'
 
   move(listPlanets) {
     for (let planet of listPlanets) {
@@ -25,8 +26,8 @@ export class Planet {
         const dz = planet.z - this.z
 
         let distanceSquared = (dx * dx + dy * dy + dz * dz) * AU
-        if(distanceSquared < 500) {
-          distanceSquared = 500
+        if(distanceSquared < 1000 * AU) {
+          distanceSquared = 1000 * AU
         }
         let distance = Math.sqrt(distanceSquared)
 
@@ -54,8 +55,11 @@ export class Planet {
   }
 
   init(scene) {
+    const planetTexture = new THREE.TextureLoader().load(this.image)
+
     const geometry = new THREE.SphereGeometry(this.radius, 24, 24)
-    const material = new THREE.MeshStandardMaterial({ color: 0xffffff })
+    const material = new THREE.MeshStandardMaterial({ map: planetTexture })
+
     this.planetMesh = new THREE.Mesh(geometry, material);
     this.planetMesh.position.set(this.x, this.y, this.z);
 

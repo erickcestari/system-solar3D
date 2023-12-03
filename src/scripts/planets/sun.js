@@ -4,5 +4,6 @@ import { Planet } from "../planet";
 export class Sun extends Planet {
   name = "Sun"
   radius = EARTHRADIUS * 10
-  mass = EARTHMASS
+  mass = EARTHMASS * 333000 
+  image = 'sun.png'
 }

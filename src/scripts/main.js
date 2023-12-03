@@ -46,17 +46,18 @@ Array(200).fill().forEach(addStar)
 const earth1 = new Earth
 earth1.id = 1
 earth1.x = 100
-earth1.xVelocity = 0.1
-earth1.zVelocity = 0.1
+earth1.xVelocity = 0.01
+earth1.zVelocity = 0.01
 earth1.init(scene)
 
 const earth2 = new Earth
 earth2.id = 2
-earth2.xVelocity = -0.1
+earth2.xVelocity = -0.01
 earth2.init(scene)
 
 const sun = new Sun
 sun.id = 3
+sun.x = 200
 sun.init(scene)
 
 const listPlanets = [earth1, earth2, sun]
@@ -73,8 +74,8 @@ function animate() {
   }
 
   for(const planet of listPlanets) {
-    planet.draw()
     planet.updatePosition()
+    planet.draw()
   }
 
   renderer.render(scene, camera);
