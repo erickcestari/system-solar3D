@@ -26,6 +26,12 @@ scene.add(ambientLight)
 
 const controls = new OrbitControls(camera, renderer.domElement)
 
+window.addEventListener('resize', () => {
+  renderer.setSize(window.innerWidth, window.innerHeight)
+  camera.aspect = window.innerWidth / window.innerHeight
+  camera.updateProjectionMatrix()
+})
+
 function addStar() {
   const geometry = new THREE.SphereGeometry(0.40, 24, 24)
   const material = new THREE.MeshStandardMaterial({color: 0xffffff})
@@ -66,10 +72,6 @@ const listPlanets = [earth1, earth2, sun, sun2]
 
 function animate() {
   requestAnimationFrame(animate)
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  controls.update()
 
   for(const planet of listPlanets) {
     planet.move(listPlanets)
